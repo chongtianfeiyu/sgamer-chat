@@ -60,22 +60,8 @@ app.use(function(req, res, next){
 });
 
 io.sockets.on('connection', function (socket) {
-    var room;
     socket.on('online', function (data) {
-        room  = data.room;
-        socket.join(room);
-        //socket.broadcast.to(room).emit('online', {num:io.sockets.clients(room).length});
-    });
-    /*socket.on('say', function (data) {
-        console.log('socket.io on say');
-        console.log(data);
-        socket.broadcast.to(data.room).emit('say', data.data);
-    });*/
-    socket.on('disconnect', function () {
-        if (room) {
-            socket.leave(room);
-            //socket.broadcast.to(room).emit('offline', {num:io.sockets.clients(room).length});
-        }
+        socket.join(data.room);
     });
 });
 
